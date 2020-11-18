@@ -1,0 +1,211 @@
+window.Collection = {
+  gridItem      : '.js-grid-item',
+  blockGrid     : '.js-block-grid',
+  groupItemInfo : '.js-group-item-info',
+  gridItemPhoto : '.js-grid-item-photogallery',
+}
+
+Collection.startBinding = function() {
+
+  $(Collection.gridItem +','+ Collection.blockGrid +',' + Collection.gridItemPhoto).unbind('click');
+  $(Collection.gridItem +','+ Collection.blockGrid +',' + Collection.gridItemPhoto).on('click', function(event) {
+    event.preventDefault();
+    var linktype = $(this).data('linktype');
+    // console.log("Inside click on :"+Collection.gridItem+", "+Collection.blockGrid+". linktype value: "+linktype);
+    if( linktype == 5 || linktype == 6) {
+      return false;
+      // console.log("linktype == 5 || linktype == 6");
+    } else if( linktype == 21) {
+      window.open($(this).data('url'));
+      // console.log("linktype == 21");
+    } else {
+      // window.location = $(this).data('url');
+      var _$this = $(this);
+      var _urlBlank = _$this.attr("data-link");
+      var _urlTemp = _$this.attr("data-url");
+      if (_urlBlank === "_blank") {
+        window.open(_urlTemp, '_blank');
+      } else {
+        // cross-origin
+        location.href = _urlTemp;
+      }
+    }
+  });
+
+  $(Collection.groupItemInfo).unbind('click');
+  $(Collection.groupItemInfo).on('click', function(event) {
+    var linktype = $(this).data('linktype');
+    // console.log("Inside click on :"+Collection.groupItemInfo+". linktype value: "+linktype);
+    if( linktype == 5 || linktype == 6) {
+      return false;
+    } else if( linktype == 21) {
+      window.open($(this).data('url'));
+    } else {
+      window.location = $(this).data('url');
+    }
+  });
+
+}
+
+Collection.startBindingPhoto = function() {
+  $(Collection.gridItemPhoto).unbind('click');
+  $(Collection.gridItemPhoto).on('click', function(event) {
+    event.preventDefault();
+    var linktype = $(this).data('linktype');
+    // console.log("Inside click on :"+Collection.gridItem+", "+Collection.blockGrid+". linktype value: "+linktype);
+    if( linktype == 5 || linktype == 6) {
+      return false;
+      // console.log("linktype == 5 || linktype == 6");
+    } else if( linktype == 21) {
+      window.open($(this).data('url'));
+      // console.log("linktype == 21");
+    } else {
+      // window.location = $(this).data('url');
+      var _$this = $(this);
+      var _urlBlank = _$this.attr("data-link");
+      var _urlTemp = _$this.attr("data-url");
+      if (_urlBlank === "_blank") {
+        window.open(_urlTemp, '_blank');
+      } else {
+        // cross-origin
+        location.href = _urlTemp;
+      }
+    }
+  });
+}
+
+
+Collection.groupLayoutFullImageSlider = function () {
+  var transition_speed = 1000, transition_type = 'fade', autoplayControls, nextarrow, arrowleft, arrowright;
+  transition_speed = parseInt($('.js-group-data-holder').attr('data-slideshowspeed'))*1000;
+
+  // mode lightSlider start
+  if($('.js-group-data-holder').attr('data-slideshowtransition') == "fade")
+    transition_type = 'fade';
+  else
+    transition_type = 'slide';
+
+  if ($('.js-group-data-holder').attr('data-slideshowautoplay') == 'yes')
+    autoplayControls = true;
+  else
+    autoplayControls = false;
+
+  if ($('.js-group-data-holder').attr('data-navigation') == 1){
+    nextarrow = true;
+    arrowleft = '<svg viewBox="0 0 256 512"><use xlink:href="#chevronl-left-pixpa-icon" width="256" height="512"></use></svg>';
+    arrowright = '<svg viewBox="0 0 256 512"><use xlink:href="#chevronl-right-pixpa-icon" width="256" height="512"></use></svg>';
+  } else if ($('.js-group-data-holder').attr('data-navigation') == 2) {
+    nextarrow = true;
+    arrowleft = '<div class="navigation_style-arrow left"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 615 95" style="enable-background:new 0 0 615 95;" xml:space="preserve"><g><polygon points="60.7,84.1 15.7,51.1 60.2,12.1 60.7,44.1 602,44.1 602,55.1 60.7,55.1  "/></g></svg></div>';
+    arrowright = '<div class="navigation_style-arrow right"><div class="slider-count-wrapper"><div class="current-slide"></div><div class="total-slide"></div><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 615 95" style="enable-background:new 0 0 615 95;" xml:space="preserve"><g><polygon points="557,12.1 602,45.1 557.5,84.1 557,52.1 15.7,52.1 15.7,41.1 557,41.1  "/></g></svg></div></div>';
+  } else if ($('.js-group-data-holder').attr('data-navigation') == 3) {
+    nextarrow = false;
+    arrowleft = '<div class="navigation_style-arrow left"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 615 95" style="enable-background:new 0 0 615 95;" xml:space="preserve"><g><polygon points="60.7,84.1 15.7,51.1 60.2,12.1 60.7,44.1 602,44.1 602,55.1 60.7,55.1  "/></g></svg></div>';
+    arrowright = '<div class="slider-count-wrapper"><div class="current-slide"></div><span>/</span><div class="total-slide"></div></div> <div class="navigation_style-arrow right"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 615 95" style="enable-background:new 0 0 615 95;" xml:space="preserve"><g><polygon points="557,12.1 602,45.1 557.5,84.1 557,52.1 15.7,52.1 15.7,41.1 557,41.1  "/></g></svg></div>';
+  } else {
+    nextarrow = false;
+  }
+
+  console.log("nextarrow" + nextarrow);
+  var cur_slide = '0';
+
+  var html_lg = {
+    'div' : '.group_lgslider_grid',
+  };
+
+  var windowHeight = window.innerHeight;
+  $('.group_lgslider_container, .group_lgslider-items').css({ 'height': windowHeight +"px" });
+
+  var groupLayoutSlider = $(html_lg.div).lightSlider({
+    item: 1,
+    autoWidth: false,
+    slideMove: 1, // slidemove will be 1 if loop is true
+    slideMargin: 0,
+
+    addClass: '',
+    mode: transition_type, //custom var
+    useCSS: true,
+    cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
+    easing: 'linear', //'for jquery animation',////
+
+    speed: 400, //ms'
+    auto: autoplayControls,
+    pauseOnHover: false,
+    loop: true,
+    slideEndAnimation: true,
+    pause: transition_speed,
+
+    keyPress: true,
+    controls: nextarrow,
+    prevHtml: arrowleft,
+    nextHtml: arrowright,
+
+    rtl:false,
+    adaptiveHeight:false,
+
+    vertical:false,
+    verticalHeight:500,
+    vThumbWidth:100,
+
+    thumbItem:0,
+    pager: true,
+    gallery: false,
+    galleryMargin: 0,
+    thumbMargin: 0,
+    currentPagerPosition: 'middle',
+
+    enableTouch:true,
+    enableDrag:true,
+    freeMove:true,
+    swipeThreshold: 40,
+
+    responsive : [],
+
+    onBeforeStart: function (el, slideIndex) {
+      
+      // console.log('onBeforeStart',el);
+    },
+    // onSliderLoad: function (el) {},
+    onBeforeSlide: function (el, slideIndex) {
+      
+    },
+    onAfterSlide: function (el) {
+
+    },
+    onBeforeNextSlide: function (el) {
+      // console.log("onBeforeNextSlide");
+      
+    },
+    onBeforePrevSlide: function (el) {
+      // console.log("onBeforePrevSlide");
+
+    },
+    onSliderLoad: function(el, slideIndex, item) {
+      $('.group_lgslider_grid').removeClass('cS-hidden');
+
+    }
+  });
+  
+  // coverSlider.goToPrevSlide();
+  // coverSlider.goToNextSlide();
+
+  
+
+
+  $('.total-slide').text(groupLayoutSlider.getTotalSlideCount());
+
+  $('.group_lgslider_container .lSAction > .lSPrev, .group_lgslider_container .navigation_container_bottom > .lSPrev').unbind("click");
+  $('.group_lgslider_container .lSAction > .lSPrev, .group_lgslider_container .navigation_container_bottom > .lSPrev').click(function () {
+    groupLayoutSlider.goToPrevSlide();
+  });
+  $('.group_lgslider_container .lSAction > .lSNext,.group_lgslider_container .navigation_container_bottom > .lSNext').unbind("click");
+  $('.group_lgslider_container .lSAction > .lSNext, .group_lgslider_container .navigation_container_bottom > .lSNext').click(function () {
+    groupLayoutSlider.goToNextSlide();
+  });
+
+
+
+
+
+
+}

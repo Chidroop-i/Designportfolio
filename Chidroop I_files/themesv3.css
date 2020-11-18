@@ -1,0 +1,1051 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+.column-container {
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .column-container.pm-padding-b50 {
+    padding-bottom: 50px;
+  }
+}
+
+.column-2-container {
+  position: relative;
+  min-height: 100%;
+  height: auto;
+}
+
+.column-2-container .sidebar {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  top: 0;
+  z-index: 1050;
+}
+
+.column-2-container .extended-footer {
+  padding-left: 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .column-2-container .header-spacing {
+    height: 100%;
+  }
+  .column-2-container .header-spacing .footer-spacing {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .column-2-container .stage-spacing {
+    padding: 0;
+  }
+}
+
+.column-2-container .stage-spacing {
+  position: relative;
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
+
+.column-2-container .stage-spacing.stage-group-left {
+  margin-left: 0;
+  width: 100%;
+}
+
+.column-2-container .stage-spacing-left {
+  position: fixed;
+  left: 0;
+  height: 100%;
+}
+
+.column-2-container .stage-spacing-right {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  top: 0;
+}
+
+.column-2-container .stage-footer-spacing {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.column-2-container.column-2-right .sidebar {
+  right: 0;
+  left: auto;
+}
+
+.column-2-container.column-2-right .extended-footer {
+  padding-left: 0;
+}
+
+.column-2-container.column-2-right .stage-spacing {
+  margin-left: 0;
+  margin-right: 250px;
+}
+
+.column-2-container.column-2-right .stage-spacing-left {
+  left: auto;
+  right: 0;
+}
+
+.column-2-container.column-2-right .stage-spacing-right {
+  left: 0;
+  right: auto;
+}
+
+.fixed-width-container {
+  max-width: 1230px;
+  margin: 0 auto;
+}
+
+.fixed-width-container .fixed-width-inner {
+  padding: 0;
+}
+
+.column-container {
+  height: 100%;
+  width: 100%;
+}
+
+.column-container {
+  height: 100%;
+  width: 100%;
+}
+
+.column-2-container-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.column-2-container-wrapper .content-sidebar {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  top: 0;
+  z-index: 1050;
+}
+
+.column-2-container-wrapper .main-contant-wrapper {
+  position: relative;
+  width: calc(100% - 250px);
+  margin: 0;
+}
+
+.column-2-container-wrapper .main-contant-wrapper.main-contant-left {
+  margin-right: 250px;
+}
+
+.column-2-container-wrapper .main-contant-wrapper.main-contant-right {
+  margin-left: 250px;
+}
+
+.column-2-container-footer {
+  padding: 5px 1em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.column-2-container-footer .vert-footer-item {
+  margin: 10px 0;
+}
+
+.column-2-container-footer .user-social-media {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.column-2-container-footer .user-social-media a {
+  display: inline-block;
+  padding: 0 10px 0 0;
+}
+
+.column-2-container-footer .user-copyright h1, .column-2-container-footer .user-copyright h2, .column-2-container-footer .user-copyright h3 {
+  margin: 0;
+}
+
+.column-2-container-footer .share-text {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.column-2-container-footer .stButton {
+  margin: 0;
+}
+
+.full-header {
+  transition: all 0.5s ease-in-out;
+}
+
+.full-header .site-logo {
+  transition: all 0.8s ease;
+}
+
+@media screen and (min-width: 1025px) {
+  .column-2-container-wrapper .content-sidebar.header-left {
+    text-align: left;
+  }
+  .column-2-container-wrapper .content-sidebar .footer-spacing {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.column-2-container-header {
+  padding: 0px 1rem;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.column-2-container-header .header-inner {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.column-2-container-header .header-inner .header-title-logo {
+  padding: 0;
+  word-wrap: break-word;
+}
+
+.column-2-container-header .header-inner .header-title-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: top;
+  display: none;
+  -webkit-backface-visibility: initial;
+}
+
+.column-2-container-header .header-inner .header-title-logo h1 {
+  padding: 1em 0;
+  margin: 0;
+  font-size: 2em;
+}
+
+.column-2-container-header .header-inner .header-title-text {
+  margin: 0;
+  display: block;
+}
+
+.column-2-container-header .header-inner .header-title-text a {
+  display: block;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item {
+  width: auto;
+  word-wrap: break-word;
+  position: relative;
+  padding: 0.3vh 0;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item > a, .column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown .header-nav-item-is-group a {
+  transition: all .25s ease;
+  padding: 0.3vh 0;
+  display: inline-block;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown .header-nav-item-is-group {
+  width: auto;
+  display: inline-block;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item a.separator-block {
+  cursor: default;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item .header-nav-is-dropdown-content {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  position: relative;
+  display: none;
+  width: 100%;
+  z-index: 1;
+  min-width: 150px;
+  max-width: 300px;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item .header-nav-is-dropdown-content .header-nav-is-dropdown-item a {
+  padding: 1vh 1em;
+  display: inline-block;
+  word-wrap: break-word;
+  width: 100%;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item .header-nav-is-dropdown-content.dropdown-active {
+  display: block;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item:hover .header-nav-is-dropdown-content {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown {
+  white-space: inherit;
+  width: 100%;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown .header-nav-item-is-group .svg-menu-icon {
+  cursor: pointer;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown .header-nav-item-is-group .svg-menu-icon:after {
+  content: '+';
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown .header-nav-item-is-group-link {
+  width: initial;
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown .header-nav-item-is-group-link:after {
+  content: '+';
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown.sinker .header-nav-item-is-group-link:after {
+  content: '-';
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown.sinker .header-nav-item-is-group .svg-menu-icon:after {
+  content: '-';
+}
+
+.column-2-container-header .header-inner .header-nav-wrapper .header-nav-list .header-nav-item.header-nav-item-is-dropdown .menu-icon {
+  display: none;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button {
+  flex-grow: 0;
+  flex-shrink: 1;
+  display: block;
+  margin-bottom: 5vh;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .common-store-btn {
+  display: none;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .common-store-btn.l_5 {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .common-store-btn.l_5.cart-not-active {
+  display: none;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .common-store-btn.l_5.cart-not-active.qty_1 {
+  display: inline-block;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .common-store-btn.l_5.cart-always-show {
+  display: inline-block;
+}
+
+.column-2-container-header .header-inner .header-action-social {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.menu-icon {
+  position: relative;
+  display: block;
+  width: 25px;
+  height: 25px;
+  box-sizing: content-box;
+  line-height: 1;
+  text-align: center;
+}
+
+.menu-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.milestone-menu-modal {
+  width: inherit;
+  position: fixed;
+  display: flex;
+  display: -moz-flex;
+  display: flex;
+  box-align: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center;
+  overflow-y: inherit;
+  padding: 0 75px 25px;
+}
+
+#horizon-scroller::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#horizon-scroller::-webkit-scrollbar {
+  width: 6px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#horizon-scroller::-webkit-scrollbar-thumb {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+
+.ground-menu-close {
+  z-index: 99;
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sandwich-menu-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  min-height: 700px;
+  opacity: 0;
+  display: none;
+  transition: all 0.3s ease-in-out 0s;
+  background-color: rgba(3, 21, 49, 0.87);
+}
+
+.sandwich-menu-overlay.share-overlay-active {
+  opacity: 1;
+  display: block;
+  z-index: 1052;
+}
+
+@media screen and (max-width: 768px) {
+  .sandwich-menu-overlay {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .sandwich-menu-overlay {
+    width: 100%;
+  }
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item {
+  display: flex;
+  align-items: center;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .search-input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 150px;
+  min-width: 150px;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .search-input-container .search-icons {
+  position: absolute;
+  left: 5px;
+  line-height: 0;
+  /* top: 11px; */
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .search-input-container input {
+  border-radius: 5px;
+  padding: 10px 10px 10px 30px;
+  width: 100%;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-fivehundredpx {
+  fill: #0099E5;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-amazon {
+  fill: #FF9900;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-amazon-pay {
+  fill: #FF9900;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-angellist {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-angular {
+  fill: #b52e31;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-app-store {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-apple {
+  fill: #A6B1B7;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-apple-Pay {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-audible {
+  fill: #FF9900;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-aws {
+  fill: #FF9900;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-bandcamp {
+  fill: #629aa9;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-behance {
+  fill: #131418;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-bell {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-bitbucket {
+  fill: #1a74ed;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-blogger {
+  fill: #F57D00;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-blogger-b {
+  fill: #F57D00;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-btc {
+  fill: #f2a900;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-buysellads {
+  fill: #df433f;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-calendar {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-cc-paypal {
+  fill: #012169;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-cc-stripe {
+  fill: #00afe1;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-clock {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-codepen {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-creative-commons {
+  fill: #d13814;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-creative-commons-zero {
+  fill: #d13814;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-delicious {
+  fill: #3399ff;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-deviantart {
+  fill: #05CC47;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-digg {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-doc {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-download {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-dribbble {
+  fill: #EA4C89;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-dropbox {
+  fill: #007EE5;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-discord {
+  fill: #7289da;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-ebay {
+  fill: #0064d2;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-ello {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-mail {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-etsy {
+  fill: #d5641c;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-facebook {
+  fill: #3B5999;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-facebook-messenger {
+  fill: #0084FF;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-flickr {
+  fill: #FF0084;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-flipboard {
+  fill: #e12828;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-foursquare {
+  fill: #F94877;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-git {
+  fill: #f15033;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-github {
+  fill: #00405D;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-globe {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-goodreads {
+  fill: #553b08;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-google {
+  fill: #4285F4;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-gplus {
+  fill: #DD4B39;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-google-wallet {
+  fill: #079a25;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-google-drive {
+  fill: #fbbc05;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-gratipay {
+  fill: #339967;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-google-plus-g {
+  fill: #DD4B39;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-hacker-news {
+  fill: #FF6600;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-heart {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-fire-a-helper {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-houzz {
+  fill: #7ac142;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-hubspot {
+  fill: #FF7A59;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-imdb {
+  fill: #f5de50;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-info {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-instagram {
+  fill: #E4405F;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-itunes {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-kaggle {
+  fill: #20bfff;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-kickstarter {
+  fill: #2bde73;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-lastfm {
+  fill: #d51007;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-leanpub {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-link {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-linkedin {
+  fill: #0077B5;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-location {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-mailchimp {
+  fill: #239ab9;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-medium {
+  fill: #02B875;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-medium-m {
+  fill: #02B875;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-mixcloud {
+  fill: #f3b2a7;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-napster {
+  fill: #19196e;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-openid {
+  fill: #f28019;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-palfed {
+  fill: #0e1b3c;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-patreon {
+  fill: #f96854;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-paypal {
+  fill: #003087;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-periscope {
+  fill: #40A4C4;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-phone {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-pinterest {
+  fill: #BD081C;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-periswcope {
+  fill: #40A4C4;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-pinterest-p {
+  fill: #BD081C;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-product-hunt {
+  fill: #DA552F;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-profile {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-quora {
+  fill: #B92B27;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-reddit {
+  fill: #FF5700;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-restaurant {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-rss {
+  fill: #f26522;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-reddit-alien {
+  fill: #FF5700;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-scribd {
+  fill: #1a7bba;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-shop {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-skype {
+  fill: #00AFF0;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-slack-hash {
+  fill: #4A154B;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-slideshare {
+  fill: #0077B5;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-snapchat {
+  fill: #FFFC00;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-snapchat-ghost {
+  fill: #FFFC00;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-soundcloud {
+  fill: #FF5500;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-spotify {
+  fill: #1ED760;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-stackoverflow {
+  fill: #f48024;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-stripe {
+  fill: #32335d;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-stumbleupon {
+  fill: #EB4924;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-telegram-plane {
+  fill: #0088CC;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-telegram {
+  fill: #0088CC;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-ticket {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-trello {
+  fill: #0079bf;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-tripadvisor {
+  fill: #00AF87;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-tumblr {
+  fill: #34465D;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-twitter {
+  fill: #55ACEE;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-uber {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-untappd {
+  fill: #ffc001;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-viber {
+  fill: #665CAC;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-vimeo {
+  fill: #1AB7EA;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-vimeo-v {
+  fill: #1AB7EA;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-vine {
+  fill: #00B489;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-whatsapp {
+  fill: #25D366;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-wikipedia {
+  fill: #636363;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-wordpress {
+  fill: #21759B;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-wordpress-simple {
+  fill: #21759B;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-yahoo {
+  fill: #410093;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-yelp {
+  fill: #AF0606;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-yoast {
+  fill: #6d1f8f;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-youtube {
+  fill: #CD201F;
+}
+
+.column-2-container-header .header-inner .header-actions-social-button .header-actions-item .menu-icon.brand-social-icon-twitch {
+  fill: #6441A4;
+}
+
+.column-2-container-header.header-left-align-center, .column-2-container-header.header-right-align-center {
+  text-align: center;
+}
+
+.column-2-container-header.header-left-align-center .header-inner .header-actions-social-button .header-actions-item, .column-2-container-header.header-right-align-center .header-inner .header-actions-social-button .header-actions-item {
+  display: flex;
+  justify-content: center;
+}
+
+.column-2-container-header.header-left-align-right, .column-2-container-header.header-right-align-right {
+  text-align: right;
+}
+
+.column-2-container-header.header-left-align-right .header-inner .header-actions-social-button .header-actions-item, .column-2-container-header.header-right-align-right .header-inner .header-actions-social-button .header-actions-item {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.column-2-container-header .floating-cart-button .cart-twosome {
+  position: absolute;
+  font-family: Open Sans,sans-serif;
+  top: -1em;
+  right: -1em;
+  min-width: 1em;
+  font-size: .7em;
+  text-align: center;
+  line-height: 1em;
+  font-weight: 600;
+  line-height: 17px;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+}
+
+.column-2-container-header .floating-cart-button .cart-twosome.cart-qty-container {
+  display: none;
+}
+
+.column-2-container-header .floating-cart-button .cart-twosome.cart-qty-container.active {
+  display: block;
+}
+
+@media screen and (max-width: 1024px) {
+  .column-2-container-header .floating-cart-button .cart-twosome {
+    font-size: 10px;
+  }
+}
+
+.column-2-container-header .floating-cart-button .cart-value-label {
+  display: none;
+}
+
+.column-2-container-footer {
+  position: relative;
+  font-size: inherit !important;
+  padding: 5px 1rem;
+}
+
+.column-2-container-footer .user-social-media {
+  display: flex;
+}
+
+.column-2-container-footer .user-social-media a {
+  padding: 0px;
+  margin-bottom: 1em;
+}
+
+.column-2-container-footer.footer-left-align-center, .column-2-container-footer.footer-right-align-center {
+  text-align: center;
+}
+
+.column-2-container-footer.footer-left-align-center .user-social-media, .column-2-container-footer.footer-right-align-center .user-social-media {
+  justify-content: center;
+}
+
+.column-2-container-footer.footer-left-align-right, .column-2-container-footer.footer-right-align-right {
+  text-align: right;
+}
+
+.column-2-container-footer.footer-left-align-right .user-social-media, .column-2-container-footer.footer-right-align-right .user-social-media {
+  justify-content: flex-end;
+}

@@ -1,0 +1,769 @@
+window.Proofing = {
+  favoriteStar           : '.js-favourite-add',
+  starIcon               : '.js-star-icon',
+  favoriteShow           : '.js-favourite-show',
+  shoppingshow           : '.js-shopping-cart-show',
+  idArray                : [],
+  emailIcon              : '.js-photographer-email-icon',
+  friendsEmailIcon       : '.js-friends-email-icon',
+  modalClose             : '.js-modal-close',
+  markAllPhotos          : '.js-mark-all',
+  removeFavIcon          : '.js-remove-fav-icon',
+  deleteFavIcon          : '.js-delete-fav-icon',
+  homeScreenBar          : '.js-close-homescreen-bar',
+  favouriteIcon          : '.js-favourite-icon',
+  createmultipleFavIcon  : '.js-create-favorite-list',
+  cancelmultipleFavIcon  : '.js-multiple-favorite-cancel',
+  addmultipleFavIcon     : '.js-add-multiple-favorite',
+  addFavList             : '.fav-submit-modal-btn',
+  addcomments            : '.js-image-comments-btn',
+}
+
+window.notyDefaults = {
+  dismissQueue: true,
+  layout      : 'bottomCenter',
+  theme       : 'relax',
+  animation: {
+    open: {height: 'toggle'}, // jQuery animate function property object
+    close: {height: 'toggle'}, // jQuery animate function property object
+    easing: 'swing', // easing
+    speed: 500 // opening & closing animation speed
+  }
+};
+
+Proofing.showEmailPrivacyModal = function(elm) {
+  if(typeof elm != "undefined" && typeof $(elm).attr("data-imageid") != "undefined" && $(elm).attr("data-imageid")!="") {
+    $("input[name='fav_imageid']").val($(elm).attr("data-imageid"));
+  }
+  $('.fav-submit-btn').unbind('click');
+  $('.fav-submit-btn').one('click', function(e){
+    $('.js-get-email-container').find('form').submit();
+  });
+  $('#email-privacy-wrapper').addClass('modal-active');
+  $('.email-modal-body, .js-multiple-favorite-list-form, .js-pin-entry').hide();
+  $('.js-get-email-container').show();
+};
+
+Proofing.showCommentEmailPrivacyModal = function(elm) {
+  if(typeof elm != "undefined" && typeof $(elm).attr("data-imageid") != "undefined" && $(elm).attr("data-imageid")!="") {
+    $("input[name='fav_imageid']").val($(elm).attr("data-imageid"));
+  }
+  $('.fav-submit-btn').unbind('click');
+  $('.fav-submit-btn').one('click', function(e){
+    $('.js-comment-email-container').find('form').submit();
+  });
+  $('#email-privacy-wrapper').addClass('modal-active');
+  $('.email-modal-body, .js-multiple-favorite-list-form, .js-pin-entry').hide();
+  $('.js-comment-email-container').show();
+};
+
+Proofing.activeFavouriteImage = function (id, clientSlug, favListId, that) {
+  $(".js-favourite-loading").show();
+  var csrf_token = $("#csrf_token").val();
+
+  if ($('#delete_id').length) {
+    var Id = $(event.target).attr('data-deleteId');
+    var link = 'active/';
+  }
+  $.ajax({
+      data:{'id' : id, 'list_id' : favListId},
+      type: 'POST',
+      url: '/site/' + clientSlug + '/favourite?_token='+ csrf_token,
+    })
+  .done(function(data) {
+    // console.log(data);
+
+    
+
+    if(data.status == 0) {
+      $(".js-favourite-loading").hide();
+      if (typeof data.message != 'undefined') {
+        sweetAlert(data.message);
+        return false;
+      } else if(typeof data.count != 'undefined' && parseInt(data.count) > 0 && parseInt($('.js-favourite-max').val()) > 0) {
+        sweetAlert("Oops...", "You can not add more than "+$('.js-favourite-max').val()+" images to the favorite list!", "error");
+        return false;
+      }
+    } else {
+      $(that).toggleClass('show-active');
+
+      // to handle heart-icon inside model
+      if( $('body').find('.js-add-multiple-favorite[data-imageid="'+id+'"]').length > 0 ) {
+        var listids = $('body').find('.js-add-multiple-favorite[data-imageid="'+id+'"]').attr('data-fav-lists').split(',');
+        if( listids.indexOf(favListId) === -1 ) {
+          if( data.favorite == 1 ) {
+            listids.push(favListId);
+          }
+        } else {
+          if( data.favorite == 0 ) {
+            listids.pop(favListId);
+          }
+        }
+        $('body').find('.js-add-multiple-favorite[data-imageid="'+id+'"]').attr('data-fav-lists', listids.join(','));
+      }
+
+      // for lightgallery
+      if( $('body').find('.js-add-multiple-favorite[data-photoid="'+id+'"]').length > 0 ) {
+        var listids = $('body').find('.js-add-multiple-favorite[data-photoid="'+id+'"]').attr('data-fav-lists').split(',');
+        if( listids.indexOf(favListId) === -1 ) {
+          if( data.favorite == 1 ) {
+            listids.push(favListId);
+          }
+        } else {
+          if( data.favorite == 0 ) {
+            listids.pop(favListId);
+          }
+        }
+        $('body').find('.js-add-multiple-favorite[data-photoid="'+id+'"]').attr('data-fav-lists', listids.join(','));
+      }
+      //$(that).siblings(Proofing.favoriteShow).toggleClass('show-active');
+
+      // to handle heart icon on grid
+      if ($('body').find('.favourite-show[data-imageid="'+id+'"]').hasClass('show-multiple-active')) {
+        if( data.favorite == 1 ) {
+          // already has show-multiple-active class
+          //$('body').find('.favourite-show[data-imageid="'+id+'"]').siblings('.js-shopping-cart-show').addClass('side-favorite-multiple-active');
+        } else {
+          $('body').find('.favourite-show[data-imageid="'+id+'"]').removeClass('show-multiple-active');
+          //$('body').find('.favourite-show[data-imageid="'+id+'"]').siblings('.js-shopping-cart-show').removeClass('side-favorite-multiple-active');
+        }
+      } else {
+        if($('body').find('.favourite-show[data-imageid="'+id+'"]').hasClass('show-active')) {
+          if( data.favorite == 1 ) {
+            $('body').find('.favourite-show[data-imageid="'+id+'"]').addClass('show-multiple-active');
+            $('body').find('.favourite-show[data-imageid="'+id+'"]').siblings('.js-shopping-cart-show').addClass('side-favorite-multiple-active');
+            if(typeof light != 'undefined' && typeof light.div != 'undefined'){
+              // $(light.div).find('.favourite-star').text('favorite');
+              $(light.div).find('.favourite-star').addClass('red');
+            }
+
+
+          } else {
+            $('body').find('.favourite-show[data-imageid="'+id+'"]').removeClass('show-active');
+            $('body').find('.favourite-show[data-imageid="'+id+'"]').siblings('.js-shopping-cart-show').removeClass('side-favorite-active');
+            $('body').find('.favourite-show[data-imageid="'+id+'"]').siblings('.js-shopping-cart-show').removeClass('side-favorite-multiple-active');
+            if(typeof light != 'undefined' && typeof light.div != 'undefined')
+              // $(light.div).find('.favourite-star').text('favorite_border');
+              $(light.div).find('.favourite-star').removeClass('red');
+          }
+        }
+        else {
+          if( data.favorite == 1 ) {
+            $('body').find('.favourite-show[data-imageid="'+id+'"]').addClass('show-active');
+            $('body').find('.favourite-show[data-imageid="'+id+'"]').siblings('.js-shopping-cart-show').addClass('side-favorite-active');
+            if(typeof light != 'undefined' && typeof light.div != 'undefined')
+              // $(light.div).find('.favourite-star').text('favorite');
+              $(light.div).find('.favourite-star').addClass('red');
+          } else {
+            // not a case
+          }
+        }
+      }
+
+      
+      $(that).parent().find('.list-title span').text(data.count+" Photos");
+      
+
+      $(that).attr('data-favourite-status', function(index, attr) {
+        return attr == 1 ? 0 : 1;
+      });
+
+      if(window.location.pathname.match('favourite') != null)
+        $(that).parents('.js-grid-item').toggleClass('fav-favourite-dim');
+
+      setTimeout(function(){ 
+        $('.js-favourite-count').text(data.count);
+      }, 150);
+      
+      Proofing.jqueryNotyCall(that, data);
+      
+
+      $(".js-favourite-loading").hide();
+    }
+  });
+}
+
+Proofing.CreateNewFavList = function(name, desc) {
+  var csrf_token = $("#csrf_token").val();
+  var clientslug = $("#client-slug").val();
+  if(name == '' || !isNaN(name)) {
+    sweetAlert('Please choose a name for favourite list.'); return false;
+  }
+  $.ajax({
+    data:{'name' : name, 'description':desc },
+      type: 'POST',
+      url: '/site/' + clientslug + '/favorite-list-create?_token='+ csrf_token,
+    })
+    .done(function(data) {
+       // console.log(data);
+       if(data.status == 'success') {
+         var temp = $("#multiple-fav-modal-temp").html();
+         temp = $(temp)[0];
+         $(temp).find('.list-title h3').html(data.list_name);
+         $(temp).find('.js-favourite-add').attr('data-favlistid', data.list_id);
+         $(temp).find('.js-favourite-add').attr('data-imageid', $('.multiple-favorite-list ul').find('.js-favourite-add').attr('data-imageid'));
+         $(temp).find('img').attr('src', $('.multiple-favorite-list ul>li').find('img').attr('src'));
+         $('.multiple-favorite-list ul').append(temp);
+         $('.js-multiple-form-cancel').click();
+       } else {
+          // console.log('List not created!');
+       }
+    });
+}
+
+Proofing.activeDowloadImage = function (id, clientSlug) {
+  var csrf_token = $("#csrf_token").val();
+  // console.log(id);
+
+  if ($('#delete_id').length) {
+    var Id = $(event.target).attr('data-deleteId');
+    var link = 'active/';
+  }
+  $.ajax({
+      data:{'id' : id},
+      type: 'POST',
+      url: '/site/' + clientSlug + '/favourite?_token='+ csrf_token,
+      // url: link + Id +'?_token='+ csrf_token,
+    })
+  .done(function(data) {
+    // console.log(data);
+  });
+}
+
+Proofing.jqueryNotyCall = function(that, data) {
+  var text = '';
+  // if( $(that).attr('data-favourite-status') == 1) {
+  //   var count = parseInt($('.js-favourite-count').show().text()) + 1;
+  //   $('.fav-favourite-count').text(count+' PHOTOS');
+  //   text = $('.js-favourite-count').data('addfavlabel');
+  // } else {
+  //   var count = parseInt($('.js-favourite-count').show().text()) - 1;
+  //   $('.fav-favourite-count').text(count+' PHOTOS');
+  //   text = $('.js-favourite-count').data('removefavlabel');
+  // }
+
+  if(typeof data == 'object' && data.favorite == 1) {
+    var count = parseInt($('.js-favourite-count').show().text()) + 1;
+    $('.fav-favourite-count').text(count+' PHOTOS');
+    text = $('.js-favourite-count').data('addfavlabel');
+
+    var favimg = $(that).attr('data-thumb-image');
+    var appendfavimg = '<div class="js-favimg-noty favimg-noty"><img src="'+favimg+'"></div>';
+
+  } else if(typeof data == 'object' && data.favorite == 0) {
+    var count = parseInt($('.js-favourite-count').show().text()) - 1;
+    $('.fav-favourite-count').text(count+' PHOTOS');
+    text = $('.js-favourite-count').data('removefavlabel');
+    
+    var favimg = $(that).attr('data-thumb-image');
+    var appendfavimg = '<div class="js-favimg-noty favimg-noty"><img src="'+favimg+'"></div>';
+  } else if($(that).attr('data-favourite-status') == 1) {
+    var count = parseInt($('.js-favourite-count').show().text()) + 1;
+    $('.fav-favourite-count').text(count+' PHOTOS');
+    text = $('.js-favourite-count').data('addfavlabel');
+
+    var favimg = $(that).attr('data-thumb-image');
+    var appendfavimg = '<div class="js-favimg-noty favimg-noty"><img src="'+favimg+'"></div>';
+  } else {
+    var count = parseInt($('.js-favourite-count').show().text()) - 1;
+    $('.fav-favourite-count').text(count+' PHOTOS');
+    text = $('.js-favourite-count').data('removefavlabel');
+
+    var favimg = $(that).attr('data-thumb-image');
+    var appendfavimg = '<div class="js-favimg-noty favimg-noty"><img src="'+favimg+'"></div>';
+  }
+
+  var n = noty($.extend({
+    text        : text,
+    type        : 'success',
+    maxVisible  : 3,
+    template    : '<div class="noty_message text-left">'+appendfavimg+'<span class="noty_text before-none"></span><div class="noty_close"></div></div>',
+    timeout     :  6000,
+  }, window.notyDefaults));
+
+};
+
+Proofing.clientProofingInit = function() {
+  var toggle = 1;
+  var clientSlug = $(Proofing.favoriteStar).data('clientslug');
+  var csrf_token = $("#csrf_token").val();
+
+  var messageError = $('#messages-error').data('erorr');
+  if (messageError) {
+    var n = noty($.extend({
+      text        : $("#messages-error").text(),
+      type        : 'error',
+      template    : '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+      timeout     :  5000,
+    }, window.notyDefaults));
+  };
+
+
+  var message = $('#messages').data('exists');
+  if (message) {
+    var n = noty($.extend({
+      text        : $("#messages").text(),
+      type        : 'success',
+      template    : '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+      timeout     :  5000,
+    }, window.notyDefaults));
+  };
+
+
+  var toggle = 1;
+  $('body').on('click', Proofing.favoriteStar, function(event) {
+    var elm = this;
+    event.stopPropagation();
+    $('.js-download-text').hide();
+    $('.js-save-fav-text').show();
+
+    if(!$('#email-privacy-wrapper').data('ispassword')) {
+      Proofing.showEmailPrivacyModal(elm);
+    } else {
+      var t1 = typeof $(this).attr('data-imageid') != 'undefined' ? $(this).attr('data-imageid') : $(this).attr('data-photoid');
+      var t2 = $(this).attr('data-clientslug');
+      var t3 = $(this).attr('data-favlistid');
+      // if($.trim(t3) == '' && typeof Proofing.firstFavList != 'undefined') {
+      //   t3 = Proofing.firstFavList;
+      // }
+      Proofing.activeFavouriteImage(t1,t2,t3, this);
+    }
+  });
+
+  $(Proofing.markAllPhotos).on('click', function() {
+
+    $('.js-download-text').hide();
+    $('.js-save-fav-text').show();
+
+    var $that = $(this);
+    if(!$('#email-privacy-wrapper').data('ispassword'))
+      Proofing.showEmailPrivacyModal();
+    else {
+
+      var galleryId = $(this).data('id');
+      $(this).children('.infinte-loader').fadeIn();
+      $.ajax({
+        data:{'id' : galleryId},
+        type: 'POST',
+        url: '/site/' + clientSlug + '/favourite-gallery/'+galleryId+'?_token='+ csrf_token,
+        // url: link + Id +'?_token='+ csrf_token,
+      })
+      .done(function(data) {
+
+        if(!data.status) {
+          $that.children('.infinte-loader').fadeOut();
+          sweetAlert("Oops...", "You can not add more than "+$('.js-favourite-max').val()+" images to the favorite list!", "error");
+        } else {
+          $(Proofing.favoriteShow).addClass('show-active');
+          $(Proofing.favoriteStar).attr('data-favourite-status', 1);
+          $that.children('.infinte-loader').fadeOut();
+          // console.log(data);
+          //$('.js-favourite-count').show().text(data.count);
+        }
+
+
+
+      });
+    }
+  });
+
+  $('body').on('click', Proofing.addcomments, function(event) {
+    var elm = this;
+    event.stopPropagation();
+
+    // $('.email-modal-body, .js-multiple-favorite-list-form').hide();
+    if(!$('#email-privacy-wrapper').data('ispassword')) {
+      Proofing.showCommentEmailPrivacyModal(elm);
+    }
+    else {
+      // $('.js-send-inquiry-container, .js-photographer-email-container').hide();
+      // $('.js-image-comments-body').show();
+      var proofingid = $(elm).attr('data-proofingid');
+      var imageid = $(elm).attr('data-imageid');
+      var csrftoken = $(elm).attr('data-csrftoken');
+      var clientid = $(elm).attr('data-clientid');
+      // $("#imageid_val").val(imageid)
+      var dataloaded = $("#dataloaded").val()
+      if (dataloaded == 0) {
+        $("#chat__messages").html('')
+      }
+      $.ajax({
+        url:window.location.pathname.split('/').slice(0,3).join('/')+'/all-photo-comments/'+proofingid,
+        data:{"_token":csrftoken,"imageid":imageid},
+        // data:{"_token":csrftoken,"imageid":imageid},
+        type:'post',
+        dataType:'json',
+        success:function(data){
+          if (!($('.js-fab-button').hasClass('is-visible'))) {
+            $('.js-prime-comments').toggleClass('show');
+            $('.js-prime-close').toggleClass('is-active');
+            $('.js-prime-close').toggleClass('is-visible');
+            $('#prime').toggleClass('is-float');
+            $('.chat').toggleClass('is-visible');
+            $('.js-fab-button').toggleClass('is-visible');
+          }
+          if (window.innerWidth < 768){
+            $("#prime").hide();
+          }
+          $(".js-chat_back").hide();
+          $("#chat_image_header").hide()
+          $("#chat_image_reply").show()
+          $("#parentid").val(0)
+          $("#dataloaded").val(1)
+          if (data.image.src == '') {
+            $("#chat_image_reply").find('.toast__icon').hide();
+            $("#chat_image_reply").find('.toast__icon').addClass('toast__icon_hide');
+            $("#chat_image_reply").find('.toast__icon_hide').removeClass('toast__icon');
+          } else {
+            $("#chat_image_reply").find('.toast__icon_hide').addClass('toast__icon');
+            $("#chat_image_reply").find('.toast__icon').show();
+            $("#chat_image_reply").find('img').attr('src',data.image.src);
+          }
+          // $("#chat_photo_reply").attr('src',data.image.src)
+          $("#com_image_id").val(imageid)
+          $("#toast_reply_text").html('<small>'+data.image.gallery+' &gt; '+data.image.name+'</small>')
+          if (dataloaded == 0) {
+            $("#chat__messages").html(data.comment)
+          }
+          var h = 600;
+          $(".toast__container").each(function(){
+            if ($(this).is(":visible")) {
+              h = h - (+$(this).innerHeight());
+            }
+          })
+          $("#chat__messages").css({
+            'min-height': h
+          })
+    
+          var height = 0;
+          $('#chat__messages span').each(function(i, value){
+              height += parseInt($(this).height());
+          });
+          $('#chat__messages').scrollTop(height);
+          $("#chatSend").focus();
+        },
+        error:function(jqXHR, exception) {
+          window.location.reload()
+        }
+      })
+    }
+
+    // $('#email-privacy-wrapper').addClass('modal-active');
+  });
+  
+
+  $(Proofing.emailIcon).on('click', function() {
+    //$('.js-friends-email-container, .js-get-email-container, .js-download-pin-container, .js-get-email-fav-container, .js-pin-entry, .js-remove-favourite-container').hide();
+    $('.email-modal-body, .js-multiple-favorite-list-form').hide();
+    if(!$('#email-privacy-wrapper').data('ispassword')) {
+      $('.js-photographer-email-container').hide();
+      $('.js-get-email-fav-container, .js-send-inquiry-container').show();
+    }
+    else {
+      $('.js-send-inquiry-container').hide();
+      $('.js-photographer-email-container').show();
+    }
+
+    $('#email-privacy-wrapper').addClass('modal-active');
+  });
+
+
+
+
+  $(Proofing.friendsEmailIcon).on('click', function() {
+    //$('.js-photographer-email-container, .js-get-email-container, .js-download-pin-container, .js-get-email-fav-container, .js-send-inquiry-container, .js-remove-favourite-container, .js-delete-favourite-container').hide();
+    $('.email-modal-body, .js-multiple-favorite-list-form').hide();
+    $('.js-friends-email-container').show();
+    $('#email-privacy-wrapper').addClass('modal-active');
+  });
+
+  $(Proofing.removeFavIcon).on('click', function() {
+    //$('.js-photographer-email-container, .js-get-email-container, .js-download-pin-container, .js-get-email-fav-container, .js-send-inquiry-container, .js-friends-email-container, .js-delete-favourite-container').hide();
+    $('.email-modal-body, .js-multiple-favorite-list-form').hide();
+    $('.js-remove-favourite-container').show();
+    $('#email-privacy-wrapper').addClass('modal-active');
+  });
+
+  $(Proofing.deleteFavIcon).on('click', function() {
+    //$('.js-photographer-email-container, .js-get-email-container, .js-download-pin-container, .js-get-email-fav-container, .js-send-inquiry-container, .js-friends-email-container, .js-remove-favourite-container').hide();
+    $('.email-modal-body, .js-multiple-favorite-list-form').hide();
+    $('.js-delete-favourite-container').show();
+    $('#email-privacy-wrapper').addClass('modal-active');
+  });
+
+  $(Proofing.createmultipleFavIcon).on('click', function() {
+    $('.js-photographer-email-container, .js-get-email-container, .js-download-pin-container, .js-get-email-fav-container, .js-send-inquiry-container, .js-friends-email-container, .js-remove-favourite-container').hide();
+    $('.js-multiple-favorite-list-form, .multiple-favorite-modal').show();
+    $('#email-privacy-wrapper').addClass('modal-active');
+  });
+
+  $(Proofing.cancelmultipleFavIcon).on('click', function() {
+    $('.js-multiple-favorite-list-form')[0].reset();
+    $('#email-privacy-wrapper').removeClass('modal-active');
+  });
+
+  Proofing.addMultipleFavInit = function() {
+    $(Proofing.addmultipleFavIcon).unbind('click')
+    $(Proofing.addmultipleFavIcon).on('click', function(event) {//alert()
+      Proofing.gridDiv = this;
+      var imgId = $(Proofing.gridDiv).attr('data-imageid') || $(Proofing.gridDiv).attr('data-photoid') ;
+      var favThumb = $(Proofing.gridDiv).attr('data-thumb-image');
+      event.stopPropagation();
+      var favImg = $(Proofing.gridDiv).attr('data-favorite-image');
+      var favLists = $(Proofing.gridDiv).attr('data-fav-lists').split(',');
+      $('.js-multiple-single-img').attr('src', favImg);
+      $('.js-mfavorite-img-thumb').attr( 'src' , favThumb)
+      $('.js-mfavorite-img-thumb').siblings('.js-favourite-add').attr('data-thumb-image' , favThumb);
+      //$('.js-photographer-email-container, .js-get-email-container, .js-download-pin-container, .js-get-email-fav-container, .js-send-inquiry-container, .js-friends-email-container, .js-remove-favourite-container, .js-delete-favourite-container').hide();
+      $('.email-modal-body, .js-multiple-favorite-list-form').hide();
+      $('.js-multiple-favorite-list-form').find('.js-favourite-add').attr('data-imageid', imgId);
+      $.each($('.js-multiple-favorite-list-form').find('.js-favourite-add'), function (i,v) {
+        if( typeof favLists == 'object' && favLists.indexOf($(v).attr('data-favlistid')) != -1 ) {
+          $(v).addClass('show-active');
+        } else {
+          $(v).removeClass('show-active');
+        }
+      });
+      $('.js-multiple-favorite-list-form').show();
+      $('#email-privacy-wrapper').addClass('modal-active');
+      $('#email-privacy-wrapper').addClass('multiple-favorite-container');
+    });
+  }
+
+  Proofing.addMultipleFavInit();
+
+  $(Proofing.addFavList).on('click', function() {
+    var name = $.trim($("#fav-list-name").val());
+    var desc = $.trim($("#fav-list-desc").val());
+    Proofing.CreateNewFavList(name, desc);
+  });
+
+  $('.js-add-favorite-list').on('click', function(){
+    $('.multiple-favorite-form').show();
+  });
+
+  $('.js-multiple-form-cancel').on('click', function(){
+    $('.js-multiple-favorite-list-form')[0].reset();
+    $('.multiple-favorite-form').hide();
+  });
+
+
+
+
+  $('body').on('click', '.favourite-download-all, .gallery-download-all, .single-image-download', function(event){
+    event.stopPropagation();
+    $(this).addClass('active');
+    var $that = $(this);
+
+    // Detect if device is iOS then click download button
+    var standalone = window.navigator.standalone,
+        userAgent = window.navigator.userAgent.toLowerCase(),
+        safari = /safari/.test( userAgent ),
+        ios = /iphone|ipod|ipad/.test( userAgent );
+
+    if( ios ) {
+        if ( !standalone && safari ) {
+          $(document).on('mouseup touchstart', function(e){
+            $that.removeClass('active');
+            // console.log("!standalone && safari");
+          });
+        } else if ( standalone && !safari ) {
+          $(document).on('mouseup touchstart', function(e){
+            $that.removeClass('active');
+            // console.log("standalone && !safari");
+          });
+        } else if ( !standalone && !safari ) {
+          $(document).on('mouseup touchstart', function(e){
+            $that.removeClass('active');
+            // console.log("!standalone && !safari");
+          });
+        } else{
+          $(document).on('mouseup touchstart', function(e){
+            $that.removeClass('active');
+            // console.log("iphone");
+          });
+        }
+    } else {
+      $(document).mouseup(function (e) {
+        $that.removeClass('active');
+        // console.log("not iphone");
+      });
+    };
+
+    // $(document).mouseup(function (e) {
+    // // // $(document).on('mouseup touchstart', function(e){
+    //   $that.removeClass('active');
+    //   console.log('download img');
+    // });
+
+  });
+
+  $('body').on('click', '.gallery-download-all .dropdown li,  .single-image-download .dropdown li', function(event){
+    event.stopPropagation();
+    $('[name="single_download"]').val($(this).data('value'));
+    $('[name="type"]').val($(this).attr('value'));
+    $('[name="favorite_version"]').val($(this).data('value'));
+    var standalone = window.navigator.standalone,
+        userAgent = window.navigator.userAgent.toLowerCase(),
+        safari = /safari/.test( userAgent ),
+        ios = /iphone|ipod|ipad/.test( userAgent );
+
+    if (window.innerWidth <= 1024) {
+      if( ios ) {
+        var iosc_download = $('.js-single-download-value').attr('value');
+        $('.js-single-download-photos-form').attr('action', 'https://s3-img.pixpa.com/' + iosc_download+ '');
+      };
+    };
+    var $that = $(this);
+    if(!$('#email-privacy-wrapper').data('ispassword')) {
+      if( $(this).data('download') == 1) {
+        $('.js-download-text').show();
+        $('.js-save-fav-text').hide();
+      } else {
+        $('.js-download-text').hide();
+        $('.js-save-fav-text').show();
+      }
+
+      $('.js-comment-email-container, .js-photographer-email-container, .js-download-pass-text, .js-download-pin-container, .js-send-inquiry-container, .js-remove-favourite-container, .js-multiple-favorite-list-form').hide();
+      $('.js-get-email-container, .js-pin-entry').show();
+      $('#email-privacy-wrapper').addClass('modal-active');
+      $('.js-get-email-container .fav-submit-btn').attr('type','button');
+      $('.fav-submit-btn').unbind('click');
+      $('.fav-submit-btn').on('click', function(e){
+        $('[name="name"]').val($('.js-name-entry').val());
+        $('[name="email"]').val($('.js-email-entry').val());
+        if($('.js-pin-entry').is(":visible")) {
+          $('[name="download_pin"]').val($('.js-pin-entry').val());
+        }
+        $that.parents('.js-download-photos-form').submit();
+        $('#email-privacy-wrapper').data('ispassword', 1);
+        $('#email-privacy-wrapper').removeClass('modal-active');
+      });
+    } else if($('#email-privacy-wrapper').data('ispin')) {
+      $('.js-comment-email-container, .js-photographer-email-container, .js-friends-email-container, .js-get-email-fav-container, .js-send-inquiry-container, .js-remove-favourite-container, .js-multiple-favorite-list-form, .js-delete-favourite-container').hide();
+      $('.js-get-email-container, .js-download-pin-container, .js-download-pass-text, .js-download-text').show();
+      $('#email-privacy-wrapper').addClass('modal-active');
+      $('.js-name-entry, .js-email-entry, .js-save-fav-text').hide();
+      $('.js-get-email-container .fav-submit-btn').attr('type','button');
+      $('.fav-submit-btn').unbind('click');
+      $('.fav-submit-btn').on('click', function(e){
+        if($('.js-pin-entry').is(":visible")) {
+          $('[name="download_pin"]').val($('.js-pin-entry').val());
+        }
+        $that.parents('.js-download-photos-form').submit();
+        $('#email-privacy-wrapper').removeClass('modal-active');
+      });
+    } else {
+      $that.parents('.js-download-photos-form').submit();
+    }
+  });
+
+  $('.favourite-download-all .dropdown li').on('click', function(event){
+    event.stopPropagation();
+    $('[name="favorite_version"]').val($(this).data('value'));
+    var $that = $(this);
+    if(!$('#email-privacy-wrapper').data('ispin')) {
+      $(this).parents('.favourite-download-form').submit();
+    } else {
+      $('.js-comment-email-container, .js-photographer-email-container, .js-friends-email-container, .js-get-email-container, .js-get-email-fav-container, .js-send-inquiry-container, .js-remove-favourite-container, .js-multiple-favorite-list-form, .js-delete-favourite-container').hide();
+      $('.js-download-pin-container').show();
+      $('#email-privacy-wrapper').addClass('modal-active');
+      $('.fav-submit-btn').unbind('click');
+      $('.fav-submit-btn').on('click', function(){
+        $('[name="download_pin"]').val($(this).parents('.js-download-pin-container').find('.js-pin-entry').val());
+        $that.parents('.favourite-download-form').submit();
+        $('#email-privacy-wrapper').removeClass('modal-active');
+      });
+    }
+  });
+
+
+  $(Proofing.modalClose).on('click', function() {
+    $('#proofing-user-profile').removeClass('active');
+    $('#email-privacy-wrapper').removeClass('modal-active');
+    $('#email-privacy-wrapper').removeClass('multiple-favorite-container');
+    $('.js-multiple-favorite-list-form')[0].reset();
+  });
+
+  $('.js-email-privacy-overlay').on('click', function() {
+    $('#email-privacy-wrapper').removeClass('modal-active');
+  });
+
+
+  // homescreen_bar start js
+
+  $('.js-homescreen-menubutton').on('click', function(){
+    $('.add-homescreen-bar-wrapper').removeClass('homescreen-bar-hide');
+    $('.add-homescreen-bar-wrapper').show();
+  });
+
+  if (window.navigator.standalone == true) {
+    $('.add-homescreen-bar-wrapper').addClass('homescreen-bar-hide');
+  }
+
+  if(("standalone" in window.navigator) && window.navigator.standalone){
+    // If you want to prevent remote links in standalone web apps opening Mobile Safari, change 'remotes' to true
+    var noddy, remotes = false;
+    document.addEventListener('click', function(event) {
+      noddy = event.target;
+      // Bubble up until we hit link or top HTML element. Warning: BODY element is not compulsory so better to stop on HTML
+      while(noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+        noddy = noddy.parentNode;
+      }
+      if('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes))
+      {
+        event.preventDefault();
+        document.location.href = noddy.href;
+      }
+
+    },false);
+  }
+
+  if( document.cookie.search('homescreen_bar=1') != -1) {
+    $(".add-homescreen-bar-wrapper").addClass('homescreen-bar-hide');
+  }
+
+  $(Proofing.homeScreenBar).on('click', function(event) {
+    $(".add-homescreen-bar-wrapper").slideUp();
+    var now = new Date();
+    var time = now.getTime();
+    time += 3600 * 1000;
+    now.setTime(time);
+    document.cookie =
+    'homescreen_bar=' + 1 +
+    '; expires=' + now.toUTCString() +
+    '; path=/';
+  });
+  // homescreen_bar end js
+
+  // To favourite images to list
+  $('body').unbind('click', Proofing.favouriteIcon);
+  $('body').on('click', Proofing.favouriteIcon, function (e) {
+    // console.log(window.slideIndex);
+    if($('#email-privacy-wrapper').data('ispassword') != '1')
+      Proofing.showEmailPrivacyModal();
+    else {
+      var t1 = $(this).attr('data-photoid');
+      var t2 = $(this).attr('data-clientslug');
+      //console.log(t1);console.log(t2);console.log(this);return;
+      Proofing.activeFavouriteImage(t1,t2, this);
+      $($(Proofing.favoriteShow)[window.slideIndex]).toggleClass('show-active');
+
+      $($(Proofing.favoriteStar)[window.slideIndex]).attr('data-favourite-status', function(index, attr){
+        return attr == 1 ? 0 : 1;
+      });
+
+      // $(this).toggleClass('favourite-info-active');
+      // $(this).parent().find('#lg-favorite-img').text('favorite');
+
+      $(this).parent().find('#lg-favorite-img').addClass(function(i, v){
+        return v === 'red' ? '' : 'red'
+      })
+
+
+      $(this).parent().parent().find('.slideshowgal-cart.favourite-info-active .favorite-icons-active').toggleClass('left-50');
+      // Proofing.jqueryNotyCall(this);
+    }
+  });
+
+};
